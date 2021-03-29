@@ -1,0 +1,82 @@
+<h1>Welcome to the future :)</h1>
+<hr />
+
+<form [formGroup]="dateForm" (ngSubmit)="login()">
+    <h2>Generate All</h2>
+    <div>
+        <input type="text" id="date" name="date" placeholder="Format MM/yyyy; Example: 07/2020" size="30" />
+        <button type="submit" class="btn btn-primary">Generate</button>
+    </div>
+</form>
+<hr />
+<form [formGroup]="regionForm" (ngSubmit)="export()">
+    <h2>Generate By Region</h2>
+    <div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Select Region</label>
+            <select class="form-control" formControlName="regionId">
+              <option *ngFor="let c of regions" [ngValue]="c.id">{{c.name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Date</label>
+            <input type="text" class="form-control" formControlName="date">
+          </div>
+        <button type="submit" class="btn btn-primary" [disabled]="regionForm.invalid">Generate</button>
+    </div>
+</form>
+
+<!-- <form [formGroup]="carForm" (ngSubmit)="create()">
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Manufacturer</label>
+      <input type="text" class="form-control" formControlName="manufacturer">
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Model</label>
+      <input type="text" class="form-control" formControlName="model">
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlSelect1">Select Category</label>
+      <select class="form-control" formControlName="category">
+        <option *ngFor="let c of categories" [ngValue]="c.id">{{c.name}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Image URL</label>
+      <input type="text" class="form-control" formControlName="imageUrl">
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Price Per Day</label>
+      <input type="number" class="form-control" formControlName="pricePerDay">
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Climate Control</label>
+      <select class="form-control" formControlName="hasClimateControl">
+        <option  [ngValue]="true">Yes</option>
+        <option  [ngValue]="false">No</option>
+      </select>              
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Number of Seats</label>
+      <input type="number" class="form-control" formControlName="numberOfSeats">
+    </div>  
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Transmission Type</label>
+      <select class="form-control" formControlName="transmissionType">
+        <option  [ngValue]="1">Manual</option>
+        <option  [ngValue]="2">Automatic</option>
+      </select>              
+    </div>
+    <button class="btn btn-primary" type="submit" [disabled]="carForm.invalid">Create</button>
+  </form> -->
+
+
+<!-- <form asp-controller="Home" asp-action="ByCity">
+    <h2>Generate By Region</h2>
+    <p>
+        Region: <select name="regionId" asp-items="@Model.Options"></select>
+        Date: <input type="text" name="date" />
+        <input type="submit" value="Export" />
+    </p>
+</form> -->
+<hr />
