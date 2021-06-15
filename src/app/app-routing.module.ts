@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { BrandexMainComponent } from './brandex/brandex-main/brandex-main.component';
+
 
 const routes: Routes = [
   {
@@ -8,9 +10,11 @@ const routes: Routes = [
     loadChildren: () => import('./authentication/authentication-routing.module').then(m => m.AuthenticationRoutingModule)
   },
   {
-    path: 'cars',
-    loadChildren: () => import('./cars/cars-routing.module').then(m => m.CarsRoutingModule)
+    path: 'brandex',
+    loadChildren: () => import('./brandex/brandex-routing.module').then(m => m.BrandexRoutingModule)
   },
+
+  // { path: 'brandex', component: BrandexMainComponent },
   {
     path: 'dealers',
     loadChildren: () => import('./dealers/dealers-routing.module').then(m => m.DealersRoutingModule)

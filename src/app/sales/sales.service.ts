@@ -4,8 +4,16 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Region } from './models/region.model';
 
+// Excel Logic
+import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
+
 import { SalesRegionDateInputModel } from 'src/app/shared/home/regiond.model';
 // import { Category } from './category.model';
+
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+
+const EXCEL_EXTENSION = '.xlsx';
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +24,26 @@ export class SalesService {
 
   constructor(private http: HttpClient) { }
 
+
+
   getRegions(): Observable<Array<Region>> {
     return this.http.get<Array<Region>>(environment.sales + 'region/getregions');
   }
 
-  byCity(regionForm: SalesRegionDateInputModel): Observable<Blob> {
-      return this.http.post<Blob>(environment.sales+"home/bycity/", regionForm);
-    }
+  byCity(regionForm: SalesRegionDateInputModel): any {
+
+    return this.http.post(environment.sales + "home/bycity/", regionForm, {responseType: 'blob'});
     
+  }
+
+  brandexImport(formData: FormData): any {
+
+    return this.http.post(environment.sales + "brandex/import/", formData);
+
+    
+  }
+
+
 
   // exportSales(regionForm: RegionFormModel) Observable<Blob> {
   //   return this.http.post<RegionFormModel>(environment.sales + 'bycity', regionForm, { responseType: 'blob' as 'json' }).subscribe(
@@ -151,7 +171,7 @@ export class SalesService {
 //   if(!token){
 //       throw new Error('User is not logged in');
 //   }
-  
+
 //   const result = (await fetch(host(endpoints.SHOES),{
 //       method: 'POST',
 //       headers: {

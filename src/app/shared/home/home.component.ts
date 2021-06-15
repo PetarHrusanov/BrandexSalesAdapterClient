@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CarsService } from 'src/app/cars/cars.service';
 import { Router } from '@angular/router';
-import { StatisticsService } from '../statistics/statistics.service';
 import { DateFormModel } from './date.model';
 import { FormGroup, FormBuilder } from 'ngx-strongly-typed-forms';
 import { Validators } from '@angular/forms';
@@ -11,6 +9,8 @@ import { ToastrService } from 'ngx-toastr';
 import { SalesRegionDateInputModel } from './regiond.model';
 import { Region } from 'src/app/sales/models/region.model';
 import { SalesService } from 'src/app/sales/sales.service';
+
+import { saveAs } from 'file-saver';
 
 
 @Component({
@@ -22,44 +22,33 @@ export class HomeComponent implements OnInit {
   dateForm: FormGroup<DateFormModel>;
   regionForm: FormGroup<SalesRegionDateInputModel>;
   regions: Array<Region>;
+  data: any[];
 
   constructor(
     private fb: FormBuilder,
-    private salesService: SalesService, 
+    private salesService: SalesService,
     public toastr: ToastrService,
     private router: Router) {
-      this.salesService.getRegions().subscribe(res => {
-        this.regions = res;
-      })
-     }
-
-  
+    this.salesService.getRegions().subscribe(res => {
+      this.regions = res;
+    })
+  }
 
   ngOnInit(): void {
     this.dateForm = this.fb.group<DateFormModel>({
       date: [null, Validators.required],
     });
     this.regionForm = this.fb.group<SalesRegionDateInputModel>({
-      regionId:[null, Validators.required],
+      regionId: [null, Validators.required],
       date: [null, Validators.required]
     });
 
 
   }
-  
-  login():void{};
 
-  // drugAction():void{};
+  login(): void { };
 
   export() {
-    this.salesService.byCity(this.regionForm.value).subscribe(res => {
-      this.router.navigate(['/']);
-      // this.toastr.success("Success")
-    })
+    this.salesService.byCity(this.regionForm.value).subscribe(blob => saveAs(blob, "Sales"));
   }
-
-
-  // goToCars(id) {
-  //   this.router.navigate(['cars'], { queryParams: { category: id } });
-  // }
 }
